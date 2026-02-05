@@ -22,7 +22,7 @@
     "codewonders-helpers": "^1.1.0",
     "framer-motion": "^10.12.12",
     "lucide-react": "^0.563.0",
-    "next": "13.4.2",
+    "next": "16.1.5",
     "next-page-transitions": "^1.0.0-beta.2",
     "next-pwa": "^5.4.1",
     "next-themes": "^0.4.6",
