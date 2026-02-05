@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                             External Dependency                            */
 /* -------------------------------------------------------------------------- */
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { AnimatedThemeToggler } from '../AnimatedThemeToggler';
 
 /* -------------------------- Internal Dependencies ------------------------- */
@@ -13,8 +13,28 @@ import AppContext from '../Utils/context';
 import { Logo, Icon } from '../Icons';
 
 const Navbar = () => {
-  const { show, handleopen, setTheme, closeShow, theme } = useContext(
-    AppContext
+  const { show, handleopen, setTheme, closeShow } = useContext(AppContext);
+
+  const scrollToId = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
+  const onLogoClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      const target = e.currentTarget as HTMLElement;
+      target.classList.remove('logo-spin');
+      // Force reflow so the animation can replay on subsequent clicks
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      (target as any).offsetHeight;
+      target.classList.add('logo-spin');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      closeShow?.();
+    },
+    [closeShow]
   );
 
   return (
@@ -27,6 +47,7 @@ const Navbar = () => {
               className="navbar-brand"
               aria-label="Hamza Mars Home"
               tabIndex={show ? -1 : undefined}
+              onClick={onLogoClick}
             >
               <Logo />
             </Link>
@@ -55,46 +76,55 @@ const Navbar = () => {
 
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item hover__bottom d-block d-md-none">
-                  <Link
-                    href="#home"
-                    activeClassName="is-active"
+                  <button
+                    type="button"
                     className="nav-link"
                     id="cardHover"
-                    onClick={closeShow}
+                    onClick={() => {
+                      closeShow();
+                      scrollToId('home');
+                    }}
                     aria-label="Go Home"
                     title="Home"
                   >
                     Home
-                  </Link>
+                  </button>
                 </li>
+
                 <li className="nav-item hover__bottom">
-                  <Link
-                    href="#projects"
-                    activeClassName="is-active"
+                  <button
+                    type="button"
                     className="nav-link"
                     id="cardHover"
-                    onClick={closeShow}
+                    onClick={() => {
+                      closeShow();
+                      scrollToId('projects');
+                    }}
                     aria-label="Go To Projects Section"
                     title="Projects"
                   >
                     Projects
-                  </Link>
+                  </button>
                 </li>
+
                 <li className="nav-item hover__bottom">
-                  <Link
-                    href="#contact"
-                    activeClassName="is-active"
+                  <button
+                    type="button"
                     className="nav-link"
                     id="cardHover"
-                    onClick={closeShow}
+                    onClick={() => {
+                      closeShow();
+                      scrollToId('contact');
+                    }}
                     aria-label="Go To Contacts Section"
                     title="Contact"
                   >
                     Contact
-                  </Link>
+                  </button>
                 </li>
+
                 <li className="nav-item pl-md-3">
-                   <AnimatedThemeToggler toggleThemeFn={setTheme} />
+                  <AnimatedThemeToggler toggleThemeFn={setTheme} />
                 </li>
               </ul>
             </div>
