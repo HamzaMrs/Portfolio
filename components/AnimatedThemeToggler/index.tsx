@@ -50,8 +50,8 @@ export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn 
     if (!btn) return
 
     const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // Fallback for document.startViewTransition 
-    const supportsVT = 'startViewTransition' in document && document.startViewTransition
+    // Fallback for document.startViewTransition (ne pas détacher la méthode: besoin du bon `this`)
+    const supportsVT = typeof document.startViewTransition === 'function'
     const nextIsDark = !isDark
 
     if (!supportsVT || prefersReduce) {
@@ -59,9 +59,15 @@ export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn 
       return
     }
 
-    await document.startViewTransition(() => {
-      flushSync(() => applyTheme(nextIsDark))
-    }).ready
+    try {
+      await document.startViewTransition!(() => {
+        flushSync(() => applyTheme(nextIsDark))
+      }).ready
+    } catch {
+      // Certains navigateurs / polyfills peuvent exposer la méthode mais refuser l'appel.
+      applyTheme(nextIsDark)
+      return
+    }
 
     const { top, left, width, height } = btn.getBoundingClientRect()
     const x = left + width / 2

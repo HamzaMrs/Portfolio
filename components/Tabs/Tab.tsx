@@ -2,7 +2,6 @@
 /*                            External Dependecies                            */
 /* -------------------------------------------------------------------------- */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /* ------------------------------ Tab PropTypes ----------------------------- */
 interface TabProps {
