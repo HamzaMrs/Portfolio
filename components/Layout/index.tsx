@@ -15,6 +15,7 @@ import AppContext from '../Utils/context';
 import { initGA, logPageView } from '../Utils/analytics';
 import Cursor from '../Cursor';
 import SkipToMain from '../A11y/skip-to-main';
+import ChatBot from '../ChatBot/index';
 
 import { BackLay, BodyStyling, Main } from './style';
 import { actions } from './data';
@@ -25,18 +26,18 @@ const Layout: React.FC<PropsWithChildren<{
 }>> = ({ children, title = 'Home' }) => {
   const { theme, loadTheme, show, setTheme } = useContext(AppContext);
   const [skew, setSkew] = useState(10);
-  const logPage = () => {
-    if (!(window as any).GA_INITIALIZED) {
+
+  // Exécuté une seule fois au mount
+  useEffect(() => {
+    // Google Analytics init
+    if (typeof window !== 'undefined' && !(window as any).GA_INITIALIZED) {
       initGA();
       (window as any).GA_INITIALIZED = true;
     }
     logPageView();
-  };
-
-  useEffect(() => {
-    logPage();
     loadTheme();
-  }, [loadTheme, logPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);  // Volontairement vide: on veut exécuter une seule fois au mount
 
   return (
     <Main>
@@ -57,6 +58,7 @@ const Layout: React.FC<PropsWithChildren<{
         </h1>
       </BackLay>
       <Cursor />
+      <ChatBot />
       <ScoutBar actions={actions(setTheme)} brandColor="var(--cw)" />
       {!show && <>{children}</>}
     </Main>

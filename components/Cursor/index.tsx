@@ -4,9 +4,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-/* -------------------------- Internal Dependencies ------------------------- */
-import useIsMounted from '../Utils/useIsMounted';
-
 // Define Props type for CursorStyle component
 interface CursorStyleProps {
   cursorActive: boolean;
@@ -18,7 +15,6 @@ type MouseEvent = globalThis.MouseEvent;
 const Cursor = () => {
   const dot = useRef<HTMLDivElement>(null);
   const dotOutline = useRef<HTMLDivElement>(null);
-  const isMounted = useIsMounted();
   const [mouseActive, setMouseActive] = useState(false);
 
   const delay = 8;
@@ -107,20 +103,18 @@ const Cursor = () => {
     }
 
     requestRef.current = requestAnimationFrame(animateDotOutline);
-  }, [endX, endY]);
+  }, []);  // Pas de dépendances: on utilise uniquement des refs qui ne changent pas
 
   useEffect(() => {
-    const requestRefs = requestRef?.current;
+    // Lance l'animation et bindé les events une seule fois au mount
+    document.addEventListener('mousemove', mouseMoveEvent);
+    document.addEventListener('mouseenter', mouseEnterEvent);
+    document.addEventListener('mouseleave', mouseLeaveEvent);
+    document.addEventListener('mouseover', mouseOverEvent);
+    document.addEventListener('mouseout', mouseOutEvent);
 
-    if (isMounted()) {
-      document.addEventListener('mousemove', mouseMoveEvent);
-      document.addEventListener('mouseenter', mouseEnterEvent);
-      document.addEventListener('mouseleave', mouseLeaveEvent);
-      document.addEventListener('mouseover', mouseOverEvent);
-      document.addEventListener('mouseout', mouseOutEvent);
+    requestRef.current = requestAnimationFrame(animateDotOutline);
 
-      animateDotOutline();
-    }
     return () => {
       document.removeEventListener('mousemove', mouseMoveEvent);
       document.removeEventListener('mouseenter', mouseEnterEvent);
@@ -128,17 +122,12 @@ const Cursor = () => {
       document.removeEventListener('mouseover', mouseOverEvent);
       document.removeEventListener('mouseout', mouseOutEvent);
 
-      cancelAnimationFrame(requestRefs as number);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
     };
-  }, [
-    isMounted,
-    mouseMoveEvent,
-    mouseEnterEvent,
-    mouseLeaveEvent,
-    mouseOverEvent,
-    mouseOutEvent,
-    animateDotOutline,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);  // Exécuté une seule fois au mount - les handlers utilisent des refs stables
 
   return (
     <CursorStyle cursorActive={mouseActive}>

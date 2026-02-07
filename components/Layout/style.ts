@@ -107,8 +107,58 @@ ${(props) => (props.theme ? LightTheme : DarkTheme)}
   margin: 0;
   padding: 0;
   box-sizing: border-box; 
-
 }
+
+/* ========== TRANSITIONS GLOBALES FLUIDES ========== */
+
+/* Transition douce pour le changement de thème */
+:root {
+  --transition-theme: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tous les éléments qui changent avec le thème */
+body,
+body *:not(script):not(style):not(svg):not(path) {
+  transition: 
+    background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    box-shadow var(--transition-theme);
+}
+
+/* Texte avec transition plus rapide */
+a, p, h1, h2, h3, h4, h5, h6, span, li, button, input, textarea, label {
+  transition: 
+    color 0.2s ease,
+    background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    transform 0.2s ease;
+}
+
+/* View Transitions API - Animation circulaire du thème */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Support dark mode pour view transitions */
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* ========== FIN TRANSITIONS GLOBALES ========== */
 
 
 :global(body) {
@@ -138,8 +188,31 @@ body {
 
 html{
     scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Compense la navbar fixe pour les ancres */
     -ms-text-size-adjust:100%;
-    -webkit-text-size-adjust:100%
+    -webkit-text-size-adjust:100%;
+    /* Scroll plus fluide sur macOS/iOS */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar stylée */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--article-color);
 }
 
 svg{
@@ -164,6 +237,11 @@ a, h1, h2, h3, h4, h5, h6, p, button, input[type=text], input[type=date], input[
 
 a {
   cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 mark.mark {
@@ -265,8 +343,38 @@ export const Header = styled.header`
           border: none;
           padding: 8px 15px !important;
           cursor: pointer;
+          position: relative;
+          transition: color 0.3s ease, transform 0.2s ease;
+          
           svg{
             cursor:pointer;
+            transition: transform 0.3s ease;
+          }
+
+          /* Underline animation */
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--cw);
+            transition: width 0.3s ease, left 0.3s ease;
+          }
+
+          &:hover {
+            color: var(--cw) !important;
+            transform: translateY(-2px);
+            
+            &::after {
+              width: 80%;
+              left: 10%;
+            }
+            
+            svg {
+              transform: scale(1.1);
+            }
           }
 
           &:focus {
@@ -276,9 +384,16 @@ export const Header = styled.header`
       }
 
       .navbar-brand {
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+        
         svg {
           path {
             fill: var(--article-color);
+            transition: fill 0.3s ease;
           }
         }
       }

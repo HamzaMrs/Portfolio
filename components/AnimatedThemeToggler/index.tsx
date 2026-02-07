@@ -9,13 +9,13 @@ import { cn } from '../../lib/utils'
 interface AnimatedThemeTogglerProps {
   className?: string
   duration?: number
-  // Allow passing the original toggle function to keep compatibility with existing context
   toggleThemeFn?: () => void
 }
 
-export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn }: AnimatedThemeTogglerProps) => {
+export const AnimatedThemeToggler = ({ className, duration = 500, toggleThemeFn }: AnimatedThemeTogglerProps) => {
   const { setTheme, theme, resolvedTheme } = useTheme()
   const [isDark, setIsDark] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   // Sync local state with theme
@@ -26,31 +26,20 @@ export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn 
   const applyTheme = useCallback((nextIsDark: boolean) => {
     const newTheme = nextIsDark ? 'dark' : 'light'
     setIsDark(nextIsDark)
-    
-    // Update via next-themes
     setTheme(newTheme)
     
-    // Also call the original context toggle if provided, to ensure other parts (like styled-components) are updated
     if (toggleThemeFn) {
-       // We might need logic here to ensure it syncs, but existing toggle usually just flips
-       // If the existing toggle just flips, we need to be careful not to flip it back if it's already correct
-       // But if we use next-themes, we might replace the old context eventually. 
-       // For now, let's trust next-themes for the class and also call the old one.
-       // Actually, the user wants the animation. 
-       
-       // Force update the old context if needed
-       // Check if old context theme state matches
-       toggleThemeFn()
+      toggleThemeFn()
     }
-    
   }, [setTheme, toggleThemeFn])
 
   const toggleTheme = useCallback(async () => {
+    if (isAnimating) return
+    
     const btn = buttonRef.current
     if (!btn) return
 
     const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // Fallback for document.startViewTransition (ne pas détacher la méthode: besoin du bon `this`)
     const supportsVT = typeof document.startViewTransition === 'function'
     const nextIsDark = !isDark
 
@@ -59,38 +48,44 @@ export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn 
       return
     }
 
+    setIsAnimating(true)
+
     try {
-      await document.startViewTransition!(() => {
+      const transition = document.startViewTransition!(() => {
         flushSync(() => applyTheme(nextIsDark))
-      }).ready
+      })
+
+      await transition.ready
+
+      const { top, left, width, height } = btn.getBoundingClientRect()
+      const x = left + width / 2
+      const y = top + height / 2
+      const maxRadius = Math.hypot(
+        Math.max(left, window.innerWidth - left),
+        Math.max(top, window.innerHeight - top)
+      )
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      )
+
+      await transition.finished
     } catch {
-      // Certains navigateurs / polyfills peuvent exposer la méthode mais refuser l'appel.
       applyTheme(nextIsDark)
-      return
+    } finally {
+      setIsAnimating(false)
     }
-
-    const { top, left, width, height } = btn.getBoundingClientRect()
-    const x = left + width / 2
-    const y = top + height / 2
-    const maxRadius = Math.hypot(
-      Math.max(left, window.innerWidth - left),
-      Math.max(top, window.innerHeight - top)
-    )
-
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration,
-        easing: 'ease-in-out',
-        pseudoElement: '::view-transition-new(root)',
-      }
-    )
-  }, [isDark, applyTheme, duration])
+  }, [isDark, applyTheme, duration, isAnimating])
 
   return (
     <button 
@@ -98,9 +93,23 @@ export const AnimatedThemeToggler = ({ className, duration = 400, toggleThemeFn 
       onClick={toggleTheme} 
       className={cn('nav-link nav-svg btn-icon', className)} 
       aria-label="Toggle theme"
-      style={{ border: 'none', background: 'transparent', cursor: 'pointer', outline: 'none' }}
+      disabled={isAnimating}
+      style={{ 
+        border: 'none', 
+        background: 'transparent', 
+        cursor: isAnimating ? 'wait' : 'pointer', 
+        outline: 'none',
+        transition: 'transform 0.3s ease, opacity 0.2s ease',
+        transform: isAnimating ? 'scale(1.2) rotate(180deg)' : 'scale(1)',
+      }}
     >
-      {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      <span style={{
+        display: 'inline-block',
+        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        transform: isDark ? 'rotate(0deg)' : 'rotate(-90deg)',
+      }}>
+        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      </span>
     </button>
   )
 }

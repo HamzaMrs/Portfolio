@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                             External Dependency                            */
 /* -------------------------------------------------------------------------- */
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useEffect } from 'react';
 import { AnimatedThemeToggler } from '../AnimatedThemeToggler';
 
 /* -------------------------- Internal Dependencies ------------------------- */
@@ -15,11 +15,64 @@ import { Logo, Icon } from '../Icons';
 const Navbar = () => {
   const { show, handleopen, setTheme, closeShow } = useContext(AppContext);
 
+  // Scroll fluide personnalisé avec easing
+  const smoothScrollTo = useCallback((targetY: number, duration: number = 800) => {
+    const startY = window.scrollY;
+    const difference = targetY - startY;
+    const startTime = performance.now();
+
+    // Easing function: easeInOutCubic
+    const easeInOutCubic = (t: number): number => {
+      return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    };
+
+    const animateScroll = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = easeInOutCubic(progress);
+      
+      window.scrollTo(0, startY + difference * easeProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
+  }, []);
+
+  // Scroll fluide vers une section avec offset pour la navbar fixe
   const scrollToId = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, []);
+    
+    const navbarHeight = 80;
+    const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - navbarHeight;
+
+    smoothScrollTo(offsetPosition, 900);
+  }, [smoothScrollTo]);
+
+  // Intercepter les clics sur les liens anchor dans toute la page
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement;
+      
+      if (anchor && anchor.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault();
+        const id = anchor.getAttribute('href')?.slice(1);
+        if (id) {
+          scrollToId(id);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, [scrollToId]);
 
   const onLogoClick = useCallback(
     (e: React.MouseEvent) => {
@@ -31,10 +84,10 @@ const Navbar = () => {
       (target as any).offsetHeight;
       target.classList.add('logo-spin');
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      smoothScrollTo(0, 800);
       closeShow?.();
     },
-    [closeShow]
+    [closeShow, smoothScrollTo]
   );
 
   return (

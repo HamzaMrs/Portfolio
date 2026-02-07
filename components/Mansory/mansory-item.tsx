@@ -113,6 +113,15 @@ const MansoryItemStyle = styled.div`
   align-items: flex-end;
   border-radius: 9px;
   break-inside: avoid;
+  
+  /* Transitions fluides */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
 
   @media (max-width: 758px) {
     padding: 1.4rem 1rem;
@@ -125,6 +134,11 @@ const MansoryItemStyle = styled.div`
     left: 0 !important;
     top: 0 !important;
     object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover img {
+    transform: scale(1.08);
   }
 
   &:before {
@@ -155,16 +169,12 @@ const MansoryItemStyle = styled.div`
     bottom: 0px;
     left: 0px;
     opacity: 0.3;
-    /* background: linear-gradient(
-      191deg,
-      rgba(0, 0, 0, 0.1) 20%,
-      rgba(0, 0, 0, 0.76) 100%
-    ); */
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.1) 10%,
       rgb(0 0 0 / 78%) 80%
     );
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &:hover,
