@@ -5,6 +5,7 @@
 import App, { AppContext as NextAppContext, AppProps } from 'next/app';
 import React from 'react';
 import { ThemeProvider } from 'next-themes';
+import { Urbanist } from 'next/font/google';
 
 /* -------------------------- Internal Dependecies -------------------------- */
 
@@ -15,6 +16,12 @@ import {
   clearState,
   saveState,
 } from '../components/Utils/localstorage';
+
+const urbanist = Urbanist({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  display: 'swap',
+});
 
 type MyAppState = {
   show: boolean;
@@ -75,7 +82,9 @@ export default class MyApp extends App<AppProps, {}, MyAppState> {
           }}
         >
           <Loader />
-          <Component {...pageProps} />
+          <div className={urbanist.className}>
+            <Component {...pageProps} />
+          </div>
         </AppContext.Provider>
       </ThemeProvider>
     );

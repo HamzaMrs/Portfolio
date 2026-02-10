@@ -160,43 +160,6 @@ export default class MyDocument extends Document {
           />
           <meta name="apple-mobile-web-app-title" content="Hamza Mars" />
           <meta name="next-head-count" content="21" />
-          <style
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: `
-              
-              @font-face{
-                font-family:'Blorado';
-                src:url("/fonts/NeurialGrotesk-Extrabold.otf");
-                font-weight:bold;
-                font-display:swap;
-                font-style:normal
-              }
-              
-              @font-face{
-                font-family:'Blorado';
-                src:url("/fonts/NeurialGrotesk-Regular.otf");
-                font-weight:normal;
-                font-display:swap;
-                font-style:normal
-              }
-              @font-face{
-                font-family:'Blorado';
-                src:url("/fonts/NeurialGrotesk-Medium.otf");
-                font-weight:500;
-                font-display:swap;
-                font-style:normal
-              }
-              @font-face{
-                font-family:'Blorado';
-                src:url("/fonts/NeurialGrotesk-Bold.otf");
-                font-weight:600;
-                font-display:swap;
-                font-style:normal
-              }
-            `,
-            }}
-          />
           <link rel="stylesheet" href="/css/normalize.css" />
           <link rel="stylesheet" href="/css/base.css" />
         </Head>

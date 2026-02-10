@@ -31,7 +31,8 @@
     "react-ga": "^2.7.0",
     "scoutbar": "^1.1.9",
     "styled-components": "^4.4.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "typewriter-effect": "^2.22.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.6",

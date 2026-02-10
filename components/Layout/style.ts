@@ -71,7 +71,6 @@ const DarkTheme = css`
 `;
 
 export const BodyStyling = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
 
 ${(props) => (props.theme ? LightTheme : DarkTheme)}
 
@@ -162,8 +161,7 @@ a, p, h1, h2, h3, h4, h5, h6, span, li, button, input, textarea, label {
 
 
 :global(body) {
-    font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
-      Helvetica, sans-serif;
+  font-family: inherit;
 }
 
 
@@ -172,7 +170,7 @@ body {
   background-image: var(--bg-gradient) !important;
   background-attachment: fixed;
   padding-right: 0px !important;
-  font-family: "Blorado", sans-serif;
+  font-family: inherit;
   margin:0;
   padding-top: 72px; /* space for fixed navbar (smaller) */
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -226,7 +224,7 @@ svg{
 }
 
 a, h1, h2, h3, h4, h5, h6, p, button, input[type=text], input[type=date], input[type=password], input[type=value], b, label, td, select, textarea, th {
-  font-family: "Blorado", sans-serif;
+  font-family: inherit;
   text-rendering: geometricPrecision;
   color: var(--cw)
 }
@@ -586,7 +584,7 @@ export const BackLay = styled.div`
   margin: 0;
 
   h1 {
-    font-family: Abril FatFace;
+    font-family: inherit;
     font-size: 29.42vmin;
     ${(props) =>
       props.title === 'About Me' ||

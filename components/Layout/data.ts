@@ -9,19 +9,25 @@ import PROJECTS_DATA from '../AppData/projects';
 
 export const actions = (theme: () => void) => [
   createScoutAction({
-    label: 'Home',
+    label: 'Accueil',
     href: '/',
     keyboardShortcut: ['h'],
   }),
 
   createScoutAction({
-    label: 'Contact Me',
+    label: 'À propos',
+    href: '/#about',
+    keyboardShortcut: ['a'],
+  }),
+
+  createScoutAction({
+    label: 'Contact',
     href: '/#contact',
     keyboardShortcut: ['c'],
   }),
 
   createScoutAction({
-    label: 'Projects',
+    label: 'Projets',
     href: '/#projects',
     keyboardShortcut: ['p'],
   }),

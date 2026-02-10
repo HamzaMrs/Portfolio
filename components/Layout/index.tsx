@@ -8,6 +8,8 @@ import React, {
   useState,
 } from 'react';
 import { ScoutBar } from 'scoutbar';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 /* -------------------------- Internal Dependencies ------------------------- */
 import Navbar from '../Navbar';
@@ -16,6 +18,7 @@ import { initGA, logPageView } from '../Utils/analytics';
 import Cursor from '../Cursor';
 import SkipToMain from '../A11y/skip-to-main';
 import ChatBot from '../ChatBot/index';
+import Footer from '../Footer';
 
 import { BackLay, BodyStyling, Main } from './style';
 import { actions } from './data';
@@ -26,6 +29,7 @@ const Layout: React.FC<PropsWithChildren<{
 }>> = ({ children, title = 'Home' }) => {
   const { theme, loadTheme, show, setTheme } = useContext(AppContext);
   const [skew, setSkew] = useState(10);
+  const router = useRouter();
 
   // Exécuté une seule fois au mount
   useEffect(() => {
@@ -60,7 +64,20 @@ const Layout: React.FC<PropsWithChildren<{
       <Cursor />
       <ChatBot />
       <ScoutBar actions={actions(setTheme)} brandColor="var(--cw)" />
-      {!show && <>{children}</>}
+      {!show && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={router.asPath}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {children}
+            <Footer />
+          </motion.div>
+        </AnimatePresence>
+      )}
     </Main>
   );
 };
