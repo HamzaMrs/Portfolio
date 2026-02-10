@@ -293,7 +293,7 @@ mark.mark {
 
 export const Header = styled.header`
     padding: 14px 0; 
-    transition: background 220ms ease, backdrop-filter 220ms ease, padding 220ms ease;
+    transition: padding 220ms ease;
 
     position: fixed;
     top: 0;
@@ -302,23 +302,8 @@ export const Header = styled.header`
     width: 100%;
     z-index: 1030;
 
-    /* default: transparent */
     background: transparent;
     backdrop-filter: none;
-
-    /* If browser supports it, blur only when the page is scrolled */
-    @supports selector(:has(*)) {
-      &:has(#nav.fixed-top) {
-        background: var(--gray-alpha);
-        backdrop-filter: blur(10px) saturate(1.4);
-      }
-    }
-
-    /* Fallback: keep a very light glass effect (still subtle) */
-    @supports not selector(:has(*)) {
-      background: color-mix(in srgb, var(--gray-alpha) 35%, transparent);
-      backdrop-filter: blur(6px) saturate(1.2);
-    }
 
     @media( max-width : 762px ) {
       padding: 10px 0;

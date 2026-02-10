@@ -2,7 +2,7 @@
 /*                            External Dependencies                           */
 /* -------------------------------------------------------------------------- */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { arrayRandomItem } from 'codewonders-helpers';
@@ -17,10 +17,45 @@ import MansoryItem from '../components/Mansory/mansory-item';
 import { ProjectsContext } from '../components/Utils/context';
 
 import { getTransitions } from '../components/Utils';
+import emailjs from '@emailjs/browser';
 
 const Home = () => {
   const [color] = useState(arrayRandomItem(['#37609c', '#34c759', '#5856d6']));
   const projectsData = useContext(ProjectsContext);
+  const form = useRef<HTMLFormElement>(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorObj, setErrorObj] = useState<string | null>(null);
+
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(false);
+    setErrorObj(null);
+
+    if (form.current) {
+      emailjs
+        .sendForm(
+          'service_18lx8ok',
+          'template_1muwlsl',
+          form.current,
+          'wyfBy7vjKfXBFFm8y'
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setSuccess(true);
+            setLoading(false);
+            form.current?.reset();
+          },
+          (error) => {
+            console.log(error.text);
+            setErrorObj(error.text || "Une erreur s'est produite. Veuillez réessayer.");
+            setLoading(false);
+          }
+        );
+    }
+  };
 
   return (
     <Layout>
@@ -28,34 +63,39 @@ const Home = () => {
         <PageWrapper>
           <article>
             <motion.h1
-              data-text="Je suis Hamza Mars"
-              className="intro__text"
+              data-text="Hamza Mars"
+              className="intro__text hero__title"
               {...getTransitions(0.1)}
             >
-              <mark className="mark">Je suis Hamza Mars</mark>
+              <mark className="mark">Hamza Mars</mark>
             </motion.h1>
-            <motion.p {...getTransitions(0.3)}>
-              {' '}
-              Développeur passionné, spécialisé dans la création d'applications 
-              web modernes et performantes. Je passe mes journées (et souvent mes nuits) 
-              à coder des{' '}
+            <motion.p {...getTransitions(0.2)}>
+              Étudiant en informatique à l'<strong>EFREI Paris Panthéon-Assas</strong>, 
+              passionné par le développement web et la création d'expériences 
+              digitales uniques.
+            </motion.p>
+            <motion.p {...getTransitions(0.35)}>
+              Je passe mes journées (et souvent mes nuits) à coder des{' '}
               <a href="#projects" aria-label="Voir mes Projets">
                 Projets
               </a>{' '}
-              innovants, transformant des idées en expériences interactives 
-              et immersives.{' '}
+              personnels, explorant React, Next.js, TypeScript et tout ce qui 
+              repousse les limites du web moderne.
             </motion.p>
             <motion.p {...getTransitions(0.5)}>
-              Amateur de nouvelles technologies et toujours en quête 
-              d'apprentissage. Quand je ne code pas, vous pouvez me trouver 
-              en train de lire des{' '}
+              Curieux et en apprentissage permanent, je partage mes découvertes 
+              à travers des{' '}
               <Link
                 href="/articles"
                 aria-label="Voir mes Articles"
               >
                 Articles
               </Link>{' '}
-              tech ou d'explorer de nouveaux frameworks. N'hésitez pas à me{' '}
+              et des projets open-source. Toujours à la recherche du prochain 
+              défi technique à relever.
+            </motion.p>
+            <motion.p {...getTransitions(0.65)}>
+              Une question ? Envie d'échanger ? N'hésite pas à me{' '}
               <a href="#contact" aria-label="Me Contacter">
                 Contacter
               </a>.
@@ -123,10 +163,7 @@ const Home = () => {
             </p>
           </article>
           <br />
-          <form
-            method="POST"
-            action="https://formspree.io/adenekanwonderful41@gmail.com"
-          >
+          <form ref={form} onSubmit={sendEmail}>
             <div className="fields">
               <div className="field half">
                 <input
@@ -166,9 +203,20 @@ const Home = () => {
               className="btn btn-default"
               type="submit"
               aria-label="Envoyer"
+              disabled={loading}
             >
-              Envoyer
+              {loading ? 'Envoi...' : 'Envoyer'}
             </button>
+            {success && (
+              <p style={{ marginTop: '1rem', color: '#34c759' }}>
+                Merci ! Votre message a bien été envoyé.
+              </p>
+            )}
+            {errorObj && (
+              <p style={{ marginTop: '1rem', color: '#ff3b30' }}>
+                {errorObj}
+              </p>
+            )}
           </form>
         </PageWrapper>
       </StandardSection>
@@ -178,10 +226,12 @@ const Home = () => {
 };
 
 const PageSection = styled.div`
-  min-height: calc(100vh - 39vh);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 0;
+  
   .intro__text {
     font-size: 2.275em;
     font-weight: 500;
@@ -189,6 +239,22 @@ const PageSection = styled.div`
     position: relative;
     text-transform: uppercase;
     letter-spacing: 4px;
+
+    &.hero__title {
+      font-size: 4.5em;
+      letter-spacing: 8px;
+      margin-bottom: 2.5rem;
+      
+      @media (max-width: 768px) {
+        font-size: 3em;
+        letter-spacing: 5px;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 2.2em;
+        letter-spacing: 3px;
+      }
+    }
 
     &::before,
     &::after {
@@ -199,6 +265,19 @@ const PageSection = styled.div`
       width: 100%;
       height: 100%;
       letter-spacing: 4px;
+    }
+
+    &.hero__title::before,
+    &.hero__title::after {
+      letter-spacing: 8px;
+      
+      @media (max-width: 768px) {
+        letter-spacing: 5px;
+      }
+      
+      @media (max-width: 480px) {
+        letter-spacing: 3px;
+      }
     }
 
     &::before {

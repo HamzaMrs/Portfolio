@@ -9,6 +9,7 @@ import { ThemeProvider } from 'next-themes';
 /* -------------------------- Internal Dependecies -------------------------- */
 
 import AppContext from '../components/Utils/context';
+import Loader from '../components/Loader';
 import {
   loadState,
   clearState,
@@ -73,6 +74,7 @@ export default class MyApp extends App<AppProps, {}, MyAppState> {
             closeShow: this.closeShow,
           }}
         >
+          <Loader />
           <Component {...pageProps} />
         </AppContext.Provider>
       </ThemeProvider>

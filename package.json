@@ -18,6 +18,7 @@
     "check-packages": "npm run lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "clsx": "^2.1.1",
     "codewonders-helpers": "^1.1.0",
     "framer-motion": "^10.12.12",
@@ -47,6 +48,7 @@
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "1.19.1",
+    "shebang-regex": "^4.0.0",
     "typescript": "^5.0.4"
   }
 }
