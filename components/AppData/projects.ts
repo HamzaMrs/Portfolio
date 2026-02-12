@@ -1,17 +1,17 @@
 const PROJECTS_DATA = [
   {
-    title: 'Piggment',
+    title: 'Cloudify',
     description: 'The Gradients and colors for the next smart creator',
     about:
       'Piggment is a curated collection of amazingly colored gradients for designers, developers, and smart creators over the world. now you can generate, explore, save, easy CSS cross-browser gradient codes all in one place.',
     link: 'https://piggment.co',
     imageUrl: 'https://i.ibb.co/tCZFDhL/Screen-Recording-2020-06-11-at-1.gif',
-    github: 'https://github.com/adenekan41/piggment',
+    github: 'https://github.com/HamzaMrs/Cloudify',
     type: ['project', 'open-source', 'tools'],
-    technologies: ['React', 'Sass & CSS', 'Javascript', 'Context'],
+    technologies: ['React', 'CSS', 'Typescript', 'Docker'],
   },
   {
-    title: 'Scoutbar',
+    title: 'Kasa',
     about: 'Spotlight experience for your App',
     description:
       'Navigation tool that significantly increases efficiency by reducing the number of clicks it takes you to navigate the web.',
