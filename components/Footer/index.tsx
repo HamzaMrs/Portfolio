@@ -68,21 +68,24 @@ const Footer = () => {
 };
 
 const FooterStyle = styled.footer`
-  padding: 3rem 0;
-  margin-top: 5rem;
-  background: var(--header-bg);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border-color);
+  padding: 2rem 0;
+  margin-top: 3rem;
   
   .footer-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 0.85rem;
+    padding: 1rem 2rem;
     
     @media (max-width: 991px) {
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 1.5rem;
       text-align: center;
+      padding: 1.5rem;
     }
   }
 

@@ -73,24 +73,26 @@ const SideBarModal: React.FC<ISideBarModal> = ({
                   >
                     <Close />
                   </button>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      closeShow();
-                    }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Back To Projects.
-                  </a>
                 </div>
 
                 <div className="main__post">
                   <h3 className="mt-4">{data.title}</h3>
                   <p className="te mb-4">{data.description}</p>
-                  <img src={data.imageUrl} alt={data.title} />
-                  <h4>About</h4>
+                  {/* Video or Image display */}
+                  {data.imageUrl?.endsWith('.mov') || data.imageUrl?.endsWith('.mp4') ? (
+                     <video
+                      src={data.imageUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{ width: '100%', borderRadius: '12px', marginBottom: '2rem' }}
+                    />
+                  ) : (
+                    <img src={data.imageUrl} alt={data.title} />
+                  )}
+                  
+                  <h4>À propos</h4>
                   <p>{data.about && data.about}</p>
                   <h4>Technologies</h4>
 
@@ -104,7 +106,7 @@ const SideBarModal: React.FC<ISideBarModal> = ({
                     </p>
                   )}
                   <h4>
-                    <Product /> Website
+                    <Product /> Site Web
                   </h4>
                   <p>
                     <a
@@ -133,23 +135,6 @@ const SideBarModal: React.FC<ISideBarModal> = ({
                     </>
                   )}
                 </div>
-                <a
-                  href={data.link}
-                  className="open__project"
-                  target="_blank"
-                  id="cardHover"
-                  rel="noopener noreferrer"
-                >
-                  Open Project{' '}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
-                  </svg>
-                </a>
               </div>
             </aside>
           </Wrapper>

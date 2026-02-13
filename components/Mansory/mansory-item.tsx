@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { arrayRandomItem } from 'codewonders-helpers';
 import { useRouter, withRouter } from 'next/router';
 /* -------------------------- Internal Dependencies ------------------------- */
@@ -21,6 +22,19 @@ interface MansoryItemProps {
     technologies?: string[];
   };
 }
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1]
+    }
+  }
+};
+
 const MansoryItem: React.FC<MansoryItemProps> = ({ item }) => {
   const router = useRouter();
   const { pathname } = router;
@@ -40,13 +54,26 @@ const MansoryItem: React.FC<MansoryItemProps> = ({ item }) => {
           aria-label={`${item.title} ${item.description}`}
         >
           <MansoryItemStyle
+            variants={itemVariants}
             {...{ item }}
             style={{
               height,
             }}
             role="gridcell"
           >
-            <Image src={item.imageUrl} alt={item.imageUrl} />
+            {item.imageUrl.endsWith('.mov') ||
+            item.imageUrl.endsWith('.mp4') ? (
+              <video
+                src={item.imageUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <Image src={item.imageUrl} alt={item.imageUrl} />
+            )}
             <div className="content__slate">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
@@ -56,6 +83,7 @@ const MansoryItem: React.FC<MansoryItemProps> = ({ item }) => {
       ) : (
         <>
           <MansoryItemStyle
+            variants={itemVariants}
             {...{ item }}
             style={{
               height,
@@ -69,7 +97,19 @@ const MansoryItem: React.FC<MansoryItemProps> = ({ item }) => {
             }}
             tabIndex={0}
           >
-            <Image src={item.imageUrl} alt={item.imageUrl} />
+            {item.imageUrl.endsWith('.mov') ||
+            item.imageUrl.endsWith('.mp4') ? (
+              <video
+                src={item.imageUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <Image src={item.imageUrl} alt={item.imageUrl} />
+            )}
             <div className="content__slate">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
@@ -97,7 +137,7 @@ const MansoryItem: React.FC<MansoryItemProps> = ({ item }) => {
   );
 };
 
-const MansoryItemStyle = styled.div`
+const MansoryItemStyle = styled(motion.div)`
   margin: 0 0 1.5em;
   position: relative;
 
@@ -121,6 +161,21 @@ const MansoryItemStyle = styled.div`
   &:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Ajout des styles pour la vidéo */
+  video {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    left: 0 !important;
+    top: 0 !important;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover video {
+    transform: scale(1.08); /* Zoom effet sur la vidéo au survol comme pour l'image */
   }
 
   @media (max-width: 758px) {
@@ -187,6 +242,11 @@ const MansoryItemStyle = styled.div`
       z-index: 999;
       transform: none;
       opacity: 1;
+      position: absolute; /* Fixe la position absolue pour qu'il reste calé */
+      bottom: 1.4rem;    /* Même valeur que le padding-bottom */
+      left: 2rem;        /* Même valeur que le padding-left */
+      right: 2rem;       /* Contrainte à droite pour éviter le débordement */
+      width: calc(100% - 4rem); /* Largeur contrainte */
     }
   }
 
@@ -215,6 +275,11 @@ const MansoryItemStyle = styled.div`
     opacity: 0;
     transform: translateY(10%);
     transition: opacity 300ms ease-in-out 0s, transform 300ms ease-in-out 0s;
+    position: absolute;  /* Position absolue par défaut aussi */
+    bottom: 1.4rem;
+    left: 2rem;
+    right: 2rem;
+    width: calc(100% - 4rem);
   }
 
   @media (max-width: 585px) {

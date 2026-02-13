@@ -2,23 +2,30 @@
 /*                            External Dependencies                           */
 /* -------------------------------------------------------------------------- */
 import React, { PropsWithChildren } from 'react';
-
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 /* ------------------------- MansoryLayout PropTypes ------------------------ */
 
-const MansoryLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  return <Layout>{children}</Layout>;
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
 };
 
-const Layout = styled.div`
+const MansoryLayout: React.FC<PropsWithChildren> = ({ children }) => {
+  return <Layout variants={container} initial="hidden" animate="show">{children}</Layout>;
+};
+
+const Layout = styled(motion.div)`
   margin: 1.5em 0;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  -webkit-animation-duration: 1s;
-  animation-name: fadeInUp;
-  -webkit-animation-name: fadeInUp;
-  -webkit-animation-fill-mode: both;
+  
+  
   max-width: auto;
   column-gap: 1.5em;
   @media only screen and (min-width: 1024px) {
@@ -31,29 +38,7 @@ const Layout = styled.div`
   @media only screen and (max-width: 767px) and (min-width: 540px) {
     column-count: 1;
   }
-  @keyframes fadeInUp {
-    from {
-      margin-top: 4rem;
-      opacity: 0;
-    }
 
-    to {
-      margin-top: 1.5em;
-      opacity: 1;
-    }
-  }
-
-  @-webkit-keyframes fadeInUp {
-    from {
-      margin-top: 4rem;
-      opacity: 0;
-    }
-
-    to {
-      margin-top: 1.5em;
-      opacity: 1;
-    }
-  }
   @media (max-width: 585px) {
     opacity: 1 !important;
   }

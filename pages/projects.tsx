@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import Layout, { PageWrapper } from '../components/Layout';
 import Tabs, { TabItems } from '../components/Tabs';
 import MansoryLayout from '../components/Mansory';
 import MansoryItem from '../components/Mansory/mansory-item';
 import { ProjectsContext } from '../components/Utils/context';
+import { getTransitions } from '../components/Utils';
 
 const Projects = () => {
   const projectsData = useContext(ProjectsContext);
@@ -13,46 +15,14 @@ const Projects = () => {
     <Layout title="Projets">
       <StandardSection id="projects">
         <PageWrapper>
-          <h1 className="intro__text">Projets.</h1> <br />
-          <Tabs>
-            <TabItems label="All">
-              <MansoryLayout>
-                {projectsData.map((item, index) => (
-                  <MansoryItem key={index} item={item} />
-                ))}
-              </MansoryLayout>
-            </TabItems>
-            <TabItems label="Projects">
-              <MansoryLayout>
-                {projectsData.map(
-                  (item, index) =>
-                    item.type.includes('project') && (
-                      <MansoryItem key={index} item={item} />
-                    )
-                )}
-              </MansoryLayout>
-            </TabItems>
-            <TabItems label="Dev Tools">
-              <MansoryLayout>
-                {projectsData.map(
-                  (item, index) =>
-                    item.type.includes('tools') && (
-                      <MansoryItem key={index} item={item} />
-                    )
-                )}
-              </MansoryLayout>
-            </TabItems>
-            <TabItems label="Open Source">
-              <MansoryLayout>
-                {projectsData.map(
-                  (item, index) =>
-                    item.type.includes('open-source') && (
-                      <MansoryItem key={index} item={item} />
-                    )
-                )}
-              </MansoryLayout>
-            </TabItems>
-          </Tabs>
+          <motion.div {...getTransitions(0.2)}>
+            <h1 className="intro__text">Projets.</h1>
+          </motion.div> <br />
+          <MansoryLayout>
+            {projectsData.map((item, index) => (
+              <MansoryItem key={index} item={item} />
+            ))}
+          </MansoryLayout>
         </PageWrapper>
       </StandardSection>
     </Layout>

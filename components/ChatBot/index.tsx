@@ -13,15 +13,15 @@ const KNOWLEDGE = {
   name: 'Hamza Mars',
   email: 'hamza31mars@gmail.com',
   role: 'Développeur Full-Stack',
-  description: "Développeur passionné, spécialisé dans la création d'applications web modernes et performantes.",
-  skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Node.js', 'Vue.js', 'CSS/Sass', 'Firebase', 'Git'],
+  description: "Étudiant en informatique à l'EFREI Paris Panthéon-Assas, passionné par le développement web et la création d'expériences digitales.",
+  skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Express', 'MySQL', 'Docker', 'Tailwind CSS', 'Redux Toolkit'],
   projects: [
-    { name: 'Piggment', desc: 'Collection de gradients pour designers et développeurs', tech: 'React, Sass, JavaScript' },
-    { name: 'Scoutbar', desc: 'Outil de navigation type Spotlight pour apps web', tech: 'TypeScript, React, Next.js' },
-    { name: 'Shoprrr', desc: 'Application e-commerce pour produits en coton', tech: 'React, Redux, Firebase' },
-    { name: 'Audiomack Web', desc: 'Plateforme musicale pour artistes', tech: 'React, Next.js, TypeScript' },
+    { name: 'Cloudify', desc: 'Plateforme de location de nuages avec architecture microservices', tech: 'React, Node.js, Docker' },
+    { name: 'Streamza', desc: 'Site de streaming inspiré de Netflix', tech: 'JavaScript, TMDB API' },
+    { name: 'StreamzaX', desc: 'Plateforme de streaming moderne et réactive', tech: 'React, Vite, TypeScript' },
+    { name: 'Kanban', desc: 'Application de gestion de tâches avec Drag & Drop', tech: 'React, Redux Toolkit' },
   ],
-  hobbies: ['Coder des projets perso', 'Lire des articles tech', 'Explorer de nouveaux frameworks'],
+  hobbies: ['Coder des projets perso', 'Veille technologique', 'Cinéma'],
   contact: 'Tu peux me contacter via le formulaire sur la section Contact ou par email.',
 }
 
@@ -53,7 +53,7 @@ function getBotResponse(input: string): string {
   }
 
   if (/exp[ée]rience|parcours|carriè|travail/i.test(q)) {
-    return `${KNOWLEDGE.name} a travaillé sur divers projets web, allant de plateformes e-commerce à des outils SaaS. Il a contribué à des projets comme Audiomack (plateforme musicale) et créé des outils open-source comme Scoutbar et Piggment.`
+    return `${KNOWLEDGE.name} est étudiant à l'EFREI Paris. Il travaille sur des projets Full-Stack modernes comme Cloudify (Microservices) ou StreamzaX (React/Vite).`
   }
 
   if (/dispo|disponible|freelance|mission|embauche/i.test(q)) {
@@ -175,8 +175,8 @@ export default function ChatBot() {
             <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
         ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+            <path d="M160-120v-200q0-33 23.5-56.5T240-400h480q33 0 56.5 23.5T800-320v200H160Zm200-320q-83 0-141.5-58.5T160-640q0-83 58.5-141.5T360-840h240q83 0 141.5 58.5T800-640q0 83-58.5 141.5T600-440H360ZM240-200h480v-120H240v120Zm120-320h240q50 0 85-35t35-85q0-50-35-85t-85-35H360q-50 0-85 35t-35 85q0 50 35 85t85 35Zm28.5-91.5Q400-623 400-640t-11.5-28.5Q377-680 360-680t-28.5 11.5Q320-657 320-640t11.5 28.5Q343-600 360-600t28.5-11.5Zm240 0Q640-623 640-640t-11.5-28.5Q617-680 600-680t-28.5 11.5Q560-657 560-640t11.5 28.5Q583-600 600-600t28.5-11.5ZM480-200Zm0-440Z"/>
           </svg>
         )}
       </FloatingButton>
