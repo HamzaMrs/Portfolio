@@ -48,6 +48,8 @@ const Layout: React.FC<PropsWithChildren<{
       <BodyStyling theme={theme} />
       <Head>
         <title>{`${title} | Hamza Mars | Portfolio`}</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <meta
           name="msapplication-TileColor"
           content={`${theme ? '#000000' : '#FFFFFF'}`}
