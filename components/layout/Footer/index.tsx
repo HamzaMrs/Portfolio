@@ -70,6 +70,10 @@ const Footer = () => {
 const FooterStyle = styled.footer`
   padding: 2rem 0;
   margin-top: 3rem;
+
+  @media (max-width: 992px) {
+    margin-bottom: 70px;
+  }
   
   .footer-content {
     display: flex;

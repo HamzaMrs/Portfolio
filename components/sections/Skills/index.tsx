@@ -61,16 +61,24 @@ const SkillsWrapper = styled(motion.div)`
   width: 100%;
 
   h3 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 2rem;
     font-weight: 800;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 2.5rem;
   }
 `;
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 const SkillCard = styled(motion.div)`

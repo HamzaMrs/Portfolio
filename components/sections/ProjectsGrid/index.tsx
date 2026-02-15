@@ -41,6 +41,7 @@ const Layout = styled(motion.div)`
 
   @media (max-width: 585px) {
     opacity: 1 !important;
+    margin: 1em 0;
   }
   @media (max-width: 989px) {
     opacity: 1 !important;

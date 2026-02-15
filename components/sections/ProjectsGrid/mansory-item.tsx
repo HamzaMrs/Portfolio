@@ -180,6 +180,7 @@ const MansoryItemStyle = styled(motion.div)`
 
   @media (max-width: 758px) {
     padding: 1.4rem 1rem;
+    height: 280px !important;
   }
 
   img {

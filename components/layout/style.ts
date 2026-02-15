@@ -181,6 +181,7 @@ body {
 @media (max-width: 762px) {
   body {
     padding-top: 64px; /* smaller navbar on mobile */
+    padding-bottom: 70px; /* space for social bar at bottom */
   }
 }
 
@@ -191,6 +192,7 @@ html{
     -webkit-text-size-adjust:100%;
     /* Scroll plus fluide sur macOS/iOS */
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
 }
 
 /* Scrollbar stylée */
@@ -587,13 +589,13 @@ export const BackLay = styled.div`
     font-family: inherit;
     font-size: 29.42vmin;
     ${(props) =>
-      props.title === 'About Me' ||
+    props.title === 'About Me' ||
       props.title === 'Contact' ||
       props.title === 'Home'
-        ? css`
+      ? css`
             writing-mode: unset;
           `
-        : css`
+      : css`
             writing-mode: tb-rl;
           `}
 

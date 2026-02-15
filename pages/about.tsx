@@ -43,10 +43,18 @@ const StandardSection = styled.div`
   justify-content: center;
 
   .intro__text {
-    font-size: 8rem;
+    font-size: clamp(3rem, 10vw, 8rem);
     font-weight: 900;
     margin: 4rem 0rem 1.5rem;
     position: relative;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+
+    .intro__text {
+      margin: 2rem 0 1rem;
+    }
   }
 
   p {

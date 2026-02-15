@@ -420,10 +420,15 @@ const FloatingButton = styled.button<{ $isOpen: boolean }>`
   }
 
   @media (max-width: 480px) {
-    bottom: 20px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
+    bottom: 76px;
+    right: 16px;
+    width: 46px;
+    height: 46px;
+  }
+
+  @media (max-width: 992px) {
+    bottom: 76px;
+    right: 16px;
   }
 `
 
@@ -447,10 +452,21 @@ const ChatWindow = styled.div<{ $isOpen: boolean }>`
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (max-width: 480px) {
-    width: calc(100vw - 40px);
-    right: 20px;
-    bottom: 84px;
-    height: 65vh;
+    width: 100vw;
+    height: 100vh;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    border: none;
+  }
+
+  @media (min-width: 481px) and (max-width: 992px) {
+    right: 16px;
+    bottom: 140px;
+    width: calc(100vw - 32px);
+    height: 60vh;
   }
 `
 

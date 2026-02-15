@@ -120,6 +120,9 @@ const Navbar = () => {
                 <span className="label">CV <ArrowUpRight className="arrow" /></span>
               </a>
             </li>
+            <li className="mobile-nav-item mobile-theme">
+              <AnimatedThemeToggler toggleThemeFn={setTheme} />
+            </li>
           </div>
 
           {/* Desktop nav */}
@@ -286,6 +289,10 @@ const NavWrapper = styled.header`
     @media (min-width: 768px) {
       display: none;
     }
+  }
+
+  .mobile-theme {
+    margin-top: 1rem;
   }
 
   .mobile-close {

@@ -26,8 +26,6 @@ export default function Loader() {
     <LoaderWrapper $fadeOut={fadeOut}>
       <LogoContainer>
         <LogoSVG
-          width="80"
-          height="130"
           viewBox="0 0 58 65"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +112,8 @@ const LogoContainer = styled.div`
 `
 
 const LogoSVG = styled.svg`
+  width: min(80px, 15vw);
+  height: auto;
   animation: 
     ${pulse} 2s ease-in-out infinite,
     ${glowPulse} 2s ease-in-out infinite;
@@ -124,7 +124,7 @@ const LogoSVG = styled.svg`
 `
 
 const ProgressBar = styled.div`
-  width: 120px;
+  width: min(120px, 60vw);
   height: 3px;
   background: var(--border-color);
   border-radius: 3px;

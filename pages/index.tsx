@@ -71,7 +71,7 @@ const PageSection = styled.div`
     line-height: 0.95;
     letter-spacing: 0.02em;
     margin: 0;
-    font-size: 8rem;
+    font-size: clamp(3.5rem, 12vw, 8rem);
 
     &::before,
     &::after {
