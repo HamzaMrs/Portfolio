@@ -49,7 +49,7 @@ const Home = () => {
 };
 
 const PageSection = styled.div`
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -260,18 +260,18 @@ const PageSection = styled.div`
     }
   }
   @media (max-width: 585px) {
-    margin: 3rem 0;
-    display: block;
-    min-height: 100%;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
   }
   @media (max-width: 989px) {
-    margin: 3rem 0;
-    display: block;
+    margin: 0;
+    display: flex;
   }
   @media (max-width: 220px) {
-    margin: 3rem 0;
-    display: block;
-    min-height: 100%;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
   }
   @media (prefers-reduced-motion: reduce) {
     /* Stop the animation */

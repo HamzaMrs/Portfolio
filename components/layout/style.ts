@@ -608,6 +608,10 @@ export const BackLay = styled.div`
     opacity: 1;
     z-index: -1;
     bottom: 0px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 

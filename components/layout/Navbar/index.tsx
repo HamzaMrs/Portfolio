@@ -76,53 +76,18 @@ const Navbar = () => {
             </a>
           </div>
 
-          <button
-            className="mobile-toggle"
-            aria-expanded={mobileOpen}
-            aria-label="Ouvrir le menu"
-            onClick={() => setMobileOpen(true)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-
-          {/* Mobile overlay */}
-          <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
+          <div className="nav-right-mobile">
+            <AnimatedThemeToggler toggleThemeFn={setTheme} />
             <button
-              className="mobile-close"
-              aria-label="Fermer le menu"
-              onClick={() => setMobileOpen(false)}
+              className="mobile-toggle"
+              aria-expanded={mobileOpen}
+              aria-label="Ouvrir le menu"
+              onClick={() => setMobileOpen(true)}
             >
-              ✕
+              <span />
+              <span />
+              <span />
             </button>
-            {navItems.map(({ href, label }, index) => (
-              <React.Fragment key={label}>
-                <li className="mobile-nav-item">
-                  <button
-                    className={`mobile-nav-link ${activePath === href ? 'active' : ''}`}
-                    onClick={() => handleNavClick(href)}
-                  >
-                    <span className="highlight" />
-                    <span className="label">{label}</span>
-                  </button>
-                </li>
-              </React.Fragment>
-            ))}
-            <li className="mobile-nav-item">
-              <a
-                href="/img/CV_2026-02-13_Hamza_Mars.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cv-button"
-              >
-                <span className="highlight" />
-                <span className="label">CV <ArrowUpRight className="arrow" /></span>
-              </a>
-            </li>
-            <li className="mobile-nav-item mobile-theme">
-              <AnimatedThemeToggler toggleThemeFn={setTheme} />
-            </li>
           </div>
 
           {/* Desktop nav */}
@@ -163,6 +128,39 @@ const Navbar = () => {
           </div>
         </ul>
       </nav>
+
+      {/* Mobile overlay — OUTSIDE nav to avoid backdrop-filter inheritance */}
+      <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        <button
+          className="mobile-close"
+          aria-label="Fermer le menu"
+          onClick={() => setMobileOpen(false)}
+        >
+          ✕
+        </button>
+        {navItems.map(({ href, label }) => (
+          <li key={label} className="mobile-nav-item">
+            <button
+              className={`mobile-nav-link ${activePath === href ? 'active' : ''}`}
+              onClick={() => handleNavClick(href)}
+            >
+              <span className="highlight" />
+              <span className="label">{label}</span>
+            </button>
+          </li>
+        ))}
+        <li className="mobile-nav-item">
+          <a
+            href="/img/CV_2026-02-13_Hamza_Mars.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cv-button"
+          >
+            <span className="highlight" />
+            <span className="label">CV <ArrowUpRight className="arrow" /></span>
+          </a>
+        </li>
+      </div>
     </NavWrapper>
   );
 };
@@ -240,6 +238,16 @@ const NavWrapper = styled.header`
   }
 
   /* ========== MOBILE TOGGLE ========== */
+  .nav-right-mobile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
   .mobile-toggle {
     display: flex;
     flex-direction: column;
@@ -271,12 +279,17 @@ const NavWrapper = styled.header`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 50;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: center;
     gap: 1.5rem;
+    background-color: var(--bg);
     background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    isolation: isolate;
     padding: 4rem 2rem 2rem;
     transform: translateX(100%);
     transition: transform 300ms ease-in-out;
@@ -291,10 +304,6 @@ const NavWrapper = styled.header`
     }
   }
 
-  .mobile-theme {
-    margin-top: 1rem;
-  }
-
   .mobile-close {
     position: fixed;
     right: 1.5rem;
@@ -305,7 +314,7 @@ const NavWrapper = styled.header`
     color: var(--cw);
     cursor: pointer;
     padding: 0.5rem;
-    z-index: 51;
+    z-index: 10000;
   }
 
   .mobile-nav-item {
@@ -342,7 +351,7 @@ const NavWrapper = styled.header`
     .label {
       position: relative;
       z-index: 1;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: var(--cw);
       transition: color 200ms ease-in-out;
