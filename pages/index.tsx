@@ -11,7 +11,7 @@ const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
 
 /* -------------------------- Internal Dependencies ------------------------- */
 
-import Layout, { PageWrapper } from '../components/Layout_temp/Layout';
+import Layout, { PageWrapper } from '../components/layout/Layout';
 import { getTransitions } from '../lib/animations';
 
 const Home = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/Layout_temp/Layout';
+import Layout, { PageWrapper } from '../components/layout/Layout';
 import { getTransitions } from '../lib/animations';
 import { arrayRandomItem } from 'codewonders-helpers';
 import Skills from '../components/sections/Skills';
