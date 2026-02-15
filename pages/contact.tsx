@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/Layout';
+import Layout, { PageWrapper } from '../components/layout/Layout';
 import emailjs from '@emailjs/browser';
-import { getTransitions } from '../components/Utils';
+import { getTransitions } from '../lib/animations';
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);

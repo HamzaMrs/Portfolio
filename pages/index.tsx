@@ -11,8 +11,8 @@ const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
 
 /* -------------------------- Internal Dependencies ------------------------- */
 
-import Layout, { PageWrapper } from '../components/Layout';
-import { getTransitions } from '../components/Utils';
+import Layout, { PageWrapper } from '../components/layout/Layout';
+import { getTransitions } from '../lib/animations';
 
 const Home = () => {
   const [color] = useState(arrayRandomItem(['#37609c', '#34c759', '#5856d6']));

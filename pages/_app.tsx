@@ -9,13 +9,13 @@ import { Urbanist } from 'next/font/google';
 
 /* -------------------------- Internal Dependecies -------------------------- */
 
-import AppContext from '../components/Utils/context';
-import Loader from '../components/Loader';
+import AppContext from '../context/AppContext';
+import Loader from '../components/ui/Loader';
 import {
   loadState,
   clearState,
   saveState,
-} from '../components/Utils/localstorage';
+} from '../lib/localstorage';
 
 const urbanist = Urbanist({
   subsets: ['latin'],

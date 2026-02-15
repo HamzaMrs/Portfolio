@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/Layout';
-import { getTransitions } from '../components/Utils';
+import Layout, { PageWrapper } from '../components/layout/Layout';
+import { getTransitions } from '../lib/animations';
 import { arrayRandomItem } from 'codewonders-helpers';
+import Skills from '../components/sections/Skills';
 
 const About = () => {
   const [color] = useState(arrayRandomItem(['#37609c', '#34c759', '#5856d6']));
@@ -15,21 +16,22 @@ const About = () => {
           <h1 className="intro__text">À propos.</h1>
           <article>
             <motion.p {...getTransitions(0.2)}>
-              Étudiant en informatique à l'<strong>EFREI Paris Panthéon-Assas</strong>, 
-              passionné par le développement web et la création d'expériences 
+              Étudiant en informatique à l'<strong>EFREI Paris Panthéon-Assas</strong>,
+              passionné par le développement web et la création d'expériences
               digitales uniques.
             </motion.p>
             <motion.p {...getTransitions(0.35)}>
-              Je passe mes journées (et souvent mes nuits) à coder des projets 
-              personnels, explorant React, Next.js, TypeScript et tout ce qui 
+              Je passe mes journées (et souvent mes nuits) à coder des projets
+              personnels, explorant React, Next.js, TypeScript et tout ce qui
               repousse les limites du web moderne.
             </motion.p>
             <motion.p {...getTransitions(0.5)}>
-              Curieux et en apprentissage permanent, je partage mes découvertes 
-              à travers des projets open-source. Toujours à la recherche du prochain 
+              Curieux et en apprentissage permanent, je partage mes découvertes
+              à travers des projets open-source. Toujours à la recherche du prochain
               défi technique à relever.
             </motion.p>
           </article>
+          <Skills />
         </PageWrapper>
       </StandardSection>
     </Layout>

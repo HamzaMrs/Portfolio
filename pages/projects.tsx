@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/Layout';
-import Tabs, { TabItems } from '../components/Tabs';
-import MansoryLayout from '../components/Mansory';
-import MansoryItem from '../components/Mansory/mansory-item';
-import { ProjectsContext } from '../components/Utils/context';
-import { getTransitions } from '../components/Utils';
+import Layout, { PageWrapper } from '../components/layout/Layout';
+import Tabs, { TabItems } from '../components/ui/Tabs';
+import MansoryLayout from '../components/sections/ProjectsGrid';
+import MansoryItem from '../components/sections/ProjectsGrid/mansory-item';
+import { ProjectsContext } from '../context/AppContext';
+import { getTransitions } from '../lib/animations';
 
 const Projects = () => {
   const projectsData = useContext(ProjectsContext);
