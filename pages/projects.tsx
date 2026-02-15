@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/layout/Layout';
+import Layout, { PageWrapper } from '../components/Layout_temp/Layout';
 import Tabs, { TabItems } from '../components/ui/Tabs';
 import MansoryLayout from '../components/sections/ProjectsGrid';
 import MansoryItem from '../components/sections/ProjectsGrid/mansory-item';

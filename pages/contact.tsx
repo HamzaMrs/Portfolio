@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Layout, { PageWrapper } from '../components/layout/Layout';
+import Layout, { PageWrapper } from '../components/Layout_temp/Layout';
 import emailjs from '@emailjs/browser';
 import { getTransitions } from '../lib/animations';
 
