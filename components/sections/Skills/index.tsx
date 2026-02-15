@@ -9,14 +9,12 @@ interface Skill {
 }
 
 const skillsList: Skill[] = [
-  { name: 'Développement Full-Stack (MERN/TypeScript)', category: 'Backend/Frontend' },
-  { name: 'Architecture Microservices & Conteneurisation (Docker)', category: 'DevOps' },
-  { name: 'Gestion d\'état (Redux Toolkit, Context API)', category: 'Frontend' },
+  { name: 'Développement Full-Stack & Gestion d\'état (MERN, Redux, TypeScript)', category: 'Backend/Frontend' },
+  { name: 'Architecture Microservices, Docker & CI/CD (Vercel, GitHub)', category: 'DevOps' },
   { name: 'Intégration d\'APIs (TMDB, YouTube, Leaflet)', category: 'Integration' },
   { name: 'Authentification & Sécurité (JWT, bcrypt)', category: 'Security' },
   { name: 'UI/UX responsive & animations (Tailwind, SCSS)', category: 'Design' },
   { name: 'Tests unitaires & E2E (Jest, Cypress)', category: 'Testing' },
-  { name: 'CI/CD & Déploiement automatisé (Vercel, GitHub Pages)', category: 'DevOps' },
 ];
 
 const containerVariants = {
@@ -46,8 +44,11 @@ const Skills = () => {
       <SkillsGrid>
         {skillsList.map((skill, index) => (
           <SkillCard key={index} variants={itemVariants}>
-            <span className="category">{skill.category}</span>
-            <p>{skill.name}</p>
+            <div className="highlight" />
+            <div className="content-wrapper">
+              <span className="category">{skill.category}</span>
+              <p>{skill.name}</p>
+            </div>
           </SkillCard>
         ))}
       </SkillsGrid>
@@ -73,7 +74,7 @@ const SkillsGrid = styled.div`
 `;
 
 const SkillCard = styled(motion.div)`
-  background: var(--gray-alpha); // Using theme variable
+  background: var(--gray-alpha); 
   padding: 1.5rem;
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -81,14 +82,51 @@ const SkillCard = styled(motion.div)`
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: default;
 
+  position: relative;
+  overflow: hidden;
+
+  // The highlight background effect
+  .highlight {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    height: 100%;
+    border-radius: 12px;
+    background: #6c3971;
+    transform: translateY(102%);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // The visible content wrapper
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px -10px rgba(0,0,0,0.1);
-    border-color: var(--article-color);
+    border-color: #6c3971;
+    // Add delay to border color change so it matches the fill animation better
+    transition: border-color 300ms ease 100ms, transform 0.3s ease, box-shadow 0.3s ease;
     
+    // Animate background up
+    .highlight {
+      transform: translateY(0);
+    }
+    
+    // Change text colors on hover
+    p {
+      color: #fff !important;
+      position: relative; // Ensure z-index works
+      z-index: 2;
+    }
+
     .category {
-      color: #fff;
-      background: #6c3971;
+      color: #fff !important;
+      background: rgba(255, 255, 255, 0.2);
+      position: relative;
+      z-index: 2;
     }
   }
 
@@ -98,6 +136,7 @@ const SkillCard = styled(motion.div)`
     font-weight: 500;
     line-height: 1.4;
     color: var(--cw);
+    transition: color 200ms ease-in-out;
   }
 
   .category {
@@ -108,10 +147,10 @@ const SkillCard = styled(motion.div)`
     margin-bottom: 0.8rem;
     padding: 4px 8px;
     border-radius: 4px;
-    background: var(--border-color); // subtle background
+    background: var(--border-color);
     color: var(--article-color);
     font-weight: 700;
-    transition: all 0.3s ease;
+    transition: all 200ms ease-in-out;
   }
 `;
 

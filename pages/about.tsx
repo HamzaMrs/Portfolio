@@ -21,14 +21,11 @@ const About = () => {
               digitales uniques.
             </motion.p>
             <motion.p {...getTransitions(0.35)}>
-              Je passe mes journées (et souvent mes nuits) à coder des projets
-              personnels, explorant React, Next.js, TypeScript et tout ce qui
-              repousse les limites du web moderne.
+              Au fil de mes projets personnels, je développe mes compétences aussi bien en frontend qu’en backend, avec une attention particulière portée à l’expérience utilisateur.
+              Curieux et rigoureux, j’explore régulièrement de nouveaux langages, outils et frameworks afin d’élargir mes compétences et de rester en phase avec les standards actuels du web.
             </motion.p>
             <motion.p {...getTransitions(0.5)}>
-              Curieux et en apprentissage permanent, je partage mes découvertes
-              à travers des projets open-source. Toujours à la recherche du prochain
-              défi technique à relever.
+              Toujours motivé par de nouveaux défis techniques, je cherche en permanence à progresser et à renforcer mon expertise de développeur.
             </motion.p>
           </article>
           <Skills />

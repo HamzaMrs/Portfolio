@@ -4,7 +4,7 @@ const PROJECTS_DATA = [
     description: 'Plateforme de location de nuages en temps réel avec visualisation cartographique (projet absurde).',
     about:
       'Cloudify est une application full-stack microservices permettant de louer des nuages virtuels (Cumulonimbus, Stratus, Cirrus) avec authentification JWT, suivi en temps réel et interface cartographique interactive. Architecture 4-tiers conteneurisée avec Docker.',
-    imageUrl: '/Videos/Cloudify.mov',
+    imageUrl: 'https://res.cloudinary.com/ddgwl6fyf/video/upload/v1771175581/Cloudify_syamao.mov',
     github: 'https://github.com/HamzaMrs/Cloudify',
     technologies: [
       'React',
@@ -25,7 +25,7 @@ const PROJECTS_DATA = [
     about:
       'Streamza est une application web inspirée de Netflix, développée en JavaScript Vanilla avec l\'API TMDB. Fonctionnalités : découverte de films tendances et populaires, recherche par titre, système de favoris en localStorage, lecteur de trailers YouTube, personnalisation de thème, et hero slider avec parallax.',
     link: 'https://hamzamrs.github.io/Streamza/',
-    imageUrl: '/Videos/Streamza.mov',
+    imageUrl: 'https://res.cloudinary.com/ddgwl6fyf/video/upload/v1771175580/Streamza_sxhax3.mov',
     github: 'https://github.com/HamzaMrs/Streamza',
     technologies: [
       'JavaScript',
@@ -40,7 +40,7 @@ const PROJECTS_DATA = [
     about:
       'StreamzaX est une plateforme de streaming moderne intégrant l\'API TMDB pour explorer des films tendances, populaires, mieux notés et à venir. Fonctionnalités : système de favoris, recherche en temps réel, visualisation de bandes-annonces YouTube, et architecture React avec hooks personnalisés et Context API.',
     github: 'https://github.com/HamzaMrs/StreamzaX',
-    imageUrl: '/Videos/StreamzaX.mov',
+    imageUrl: 'https://res.cloudinary.com/ddgwl6fyf/video/upload/v1771175579/StreamzaX_vueht7.mov',
     technologies: [
       'React',
       'JavaScript',
@@ -57,7 +57,7 @@ const PROJECTS_DATA = [
     about:
       'Kanban est une application de gestion de projet construite avec React et Redux Toolkit. Fonctionnalités : création de multiples tableaux (boards), CRUD complet sur tâches et colonnes, système de sous-tâches avec progression, drag & drop intuitif entre colonnes, gestion des statuts, et interface responsive avec mode sombre.',
     link: 'https://HamzaMrs.github.io/Kanban',
-    imageUrl: '/Videos/Kanban.mov',
+    imageUrl: 'https://res.cloudinary.com/ddgwl6fyf/video/upload/v1771175578/Kanban_ipsklo.mov',
     technologies: [
       'React',
       'Redux Toolkit',

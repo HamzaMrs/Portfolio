@@ -37,12 +37,11 @@ const Navbar = () => {
       e.preventDefault();
       setActivePath('');
       setSuppressHover(true);
-      setTimeout(() => setSuppressHover(false), 450);
-      setTimeout(() => {
-        router.push('/');
-        closeShow?.();
-        setMobileOpen(false);
-      }, 150);
+      setTimeout(() => setSuppressHover(false), 300);
+
+      router.push('/');
+      closeShow?.();
+      setMobileOpen(false);
     },
     [closeShow, router]
   );
@@ -51,12 +50,11 @@ const Navbar = () => {
     if (href === router.pathname) return;
     setActivePath('');
     setSuppressHover(true);
-    setTimeout(() => setSuppressHover(false), 450);
-    setTimeout(() => {
-      router.push(href);
-      closeShow?.();
-      setMobileOpen(false);
-    }, 150);
+    setTimeout(() => setSuppressHover(false), 300); // reduced from 450
+    // Navigation is now immediate
+    router.push(href);
+    closeShow?.();
+    setMobileOpen(false);
   };
 
   return (
@@ -113,7 +111,7 @@ const Navbar = () => {
             ))}
             <li className="mobile-nav-item">
               <a
-                href="/cv.pdf"
+                href="/img/CV_2026-02-13_Hamza_Mars.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cv-button"
@@ -150,7 +148,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/cv.pdf"
+                href="/img/CV_2026-02-13_Hamza_Mars.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cv-button"
