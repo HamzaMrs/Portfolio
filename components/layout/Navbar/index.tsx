@@ -116,7 +116,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/img/CV_2026-02-13_Hamza_Mars.pdf"
+                href="/img/CVALT.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cv-button"
@@ -151,7 +151,7 @@ const Navbar = () => {
         ))}
         <li className="mobile-nav-item">
           <a
-            href="/img/CV_2026-02-13_Hamza_Mars.pdf"
+            href="/img/CVALT.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="cv-button"
