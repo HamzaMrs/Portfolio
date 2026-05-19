@@ -38,6 +38,10 @@ export default class MyDocument extends Document {
         <Head>
           {this.props.styleTags}
           <meta
+            name="google-site-verification"
+            content="YSF00Flpojakq3DW32AdRKmMpr9j1wnKOyIDYlvRzi4"
+          />
+          <meta
             name="robots"
             content="noindex, nofollow, noarchive, nosnippet, noimageindex"
           />
